@@ -1,0 +1,28 @@
+create '<Env>_hashed_<MessageCoordinator>_<System>id_mapping_a',
+{NAME=>'rec', DATA_BLOCK_ENCODING => 'NONE', BLOOMFILTER => 'NONE', REPLICATION_SCOPE => '0', VERSIONS => '3', COMPRESSION => 'NONE', TTL =>'2147483647', BLOCKSIZE => '65536', IN_MEMORY => 'true', BLOCKCACHE => 'true',MIN_VERSIONS => '0',KEEP_DELETED_CELLS => 'false'}
+describe '<Env>_hashed_<MessageCoordinator>_<System>id_mapping_a'
+enable '<Env>_hashed_<MessageCoordinator>_<System>id_mapping_a'
+
+create '<Env>_hashed_<MessageCoordinator>_<System>id_mapping_b',
+{NAME=>'rec', DATA_BLOCK_ENCODING => 'NONE', BLOOMFILTER => 'NONE', REPLICATION_SCOPE => '0', VERSIONS => '3', COMPRESSION => 'NONE', TTL =>'2147483647', BLOCKSIZE => '65536', IN_MEMORY => 'true', BLOCKCACHE => 'true',MIN_VERSIONS => '0',KEEP_DELETED_CELLS => 'false'}
+describe '<Env>_hashed_<MessageCoordinator>_<System>id_mapping_b'
+enable '<Env>_hashed_<MessageCoordinator>_<System>id_mapping_b'
+
+create 'hashed_<MessageCoordinator>_<System>id_mapping_a',
+{NAME=>'rec', DATA_BLOCK_ENCODING => 'NONE', BLOOMFILTER => 'NONE', REPLICATION_SCOPE => '0', VERSIONS => '3', COMPRESSION => 'NONE', TTL =>'2147483647', BLOCKSIZE => '65536', IN_MEMORY => 'true', BLOCKCACHE => 'true',MIN_VERSIONS => '0',KEEP_DELETED_CELLS => 'false'}
+describe 'hashed_<MessageCoordinator>_<System>id_mapping_a'
+enable 'hashed_<MessageCoordinator>_<System>id_mapping_a'
+
+create 'hashed_<MessageCoordinator>_<System>id_mapping_b',
+{NAME=>'rec', DATA_BLOCK_ENCODING => 'NONE', BLOOMFILTER => 'NONE', REPLICATION_SCOPE => '0', VERSIONS => '3', COMPRESSION => 'NONE', TTL =>'2147483647', BLOCKSIZE => '65536', IN_MEMORY => 'true', BLOCKCACHE => 'true',MIN_VERSIONS => '0',KEEP_DELETED_CELLS => 'false'}
+describe 'hashed_<MessageCoordinator>_<System>id_mapping_b'
+enable 'hashed_<MessageCoordinator>_<System>id_mapping_b'
+
+
+#####Switch Table Script :-
+
+put 'rec_switch_table', '<Env>_hashed_<MessageCoordinator>_<System>id_mapping', 'tables:active', '<Env>_hashed_<MessageCoordinator>_<System>id_mapping_a'
+put 'rec_switch_table', '<Env>_hashed_<MessageCoordinator>_<System>id_mapping', 'tables:passive', '<Env>_hashed_<MessageCoordinator>_<System>id_mapping_b'
+put 'rec_switch_table', 'hashed_<MessageCoordinator>_<System>id_mapping', 'tables:active', 'hashed_<MessageCoordinator>_<System>id_mapping_a'
+put 'rec_switch_table', 'hashed_<MessageCoordinator>_<System>id_mapping', 'tables:passive', 'hashed_<MessageCoordinator>_<System>id_mapping_b'
+
